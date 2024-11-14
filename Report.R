@@ -9,13 +9,11 @@ str(data)
 summary(data)
 
 
-
 #----------------------------------------
 #chuyển đổi kiểu dữ liệu
 data$School_Year <- as.factor(data$School_Year)
 
 #-----------------------------------------
-
 #xử lý giá trị bị thiếu
 colSums(is.na(data))  #tổng số lượng các giá trị thiếu (NA) trong từng cột của bộ dữ liệu.
 colSums(data == "") ##tổng số lượng giá trị rỗng hoặc chuỗi trống trong từng cột.
@@ -30,7 +28,6 @@ data$AVG_decrease[is.na(data$AVG_decrease)] <- mean_AVG_decrease
 apply(data,2, function(x) length(unique(x))) 
 
 #--------------------------------------------------------
-
 #Kiểm tra và xử lý dữ liệu trùng lặp để bỏ các giá trị trùng nhau trong cột chuỗi 
 duplicated_rows <- duplicated(data$String)
 unique(data$String)
@@ -38,8 +35,6 @@ length(unique(data$String))
 
 #----------------------------------------------------------
 #CHUẨN HÓA dữ liệu là không cần thiết
-#------------------------------------------------------
-
 #để năm 2 là  mảng tham chiếu
 levels(data$School_Year)
 relevel(data$School_Year, ref = "Năm 2")
@@ -94,7 +89,6 @@ phan_loai_y_kien <- function(text) {
     return ("Ý kiến không liên quan")
   }
   
-  
   if (tich_cuc_count > tieu_cuc_count) {
     return("Ý kiến tích cực")
   } else if (tich_cuc_count < tieu_cuc_count) {
@@ -133,7 +127,6 @@ cat("Số lượng ý kiến không liên quan:", sl_khong_lien_quan, "\n")
  
 #------------------------------------------------------------------
 #Boxplot 
-# Boxplot
 boxplot(data$Classification, col = "lightblue")
 boxplot(data$Self_assessment, col = "lightblue")
 boxplot(data$AVG_increase, col = "lightblue")
@@ -208,7 +201,6 @@ pie(table(data$School_Year))
 legend("topright", legend = legend_text, cex = 0.8)
 
 #school name phải vẽ biểu đồ khác
-
 percent = round(prop.table(table(data$Use.))*100,2)
 legend_text <- paste(names(table(data$Use.)), paste0(" (", percent, "%)"), sep = "")
 pie(table(data$Use.))
@@ -373,7 +365,6 @@ hist(data$Fit, col = "lightblue",
 
 #----------------------------------------
 # Gis
-
 library(tmap)
 library(readxl)
 data <- read.csv("D:/file copy R.csv", header = TRUE, encoding = "UTF-8")
@@ -384,8 +375,6 @@ data_gis <-read.csv("D:/GisData.csv",header= FALSE, skip=1, encoding = "UTF-8", 
                     col.names = c("Latitude", "Longitude"))
 data_gis$Longitude <- gsub(";", "", data_gis$Longitude)
 data_gis$Longitude <- as.numeric(data_gis$Longitude)
-
-
 
 library(leaflet)
 # Tạo bản đồ và thêm ảnh nền 
@@ -400,12 +389,10 @@ map <- map %>% addMarkers(lng = ~Longitude, lat = ~Latitude)
 map
 
 #---------------------------------------------------------
-
 # Tidy data
 library(tidyverse)
 library(dplyr)
 library(tidyr)
-
 
 df <- read.csv("D:/file copy R.csv", header = TRUE, encoding = "UTF-8")
 head(df)
@@ -428,7 +415,6 @@ tidydata_long <-data_web %>%
                names_to = "Website",
                values_to = "Value")
 
-
 # Vẻ biểu đồ bậc thang
 library(ggplot2)
 
@@ -444,9 +430,7 @@ ggplot(totals_df, aes(x = Total, y = Website)) +
   labs(x = "Total", y = "Website") +
   ggtitle("Total Counts of Websites")
 
-
 # Biểu đồ hình bánh
-
 library(ggplot2)
 
 # Tính tổng của 5 cột
